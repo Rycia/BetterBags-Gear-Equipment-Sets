@@ -1,0 +1,12 @@
+## Interface: 110002
+
+## Title: BetterBags - Gear/Equipment Sets
+## Author: Rycia Soulblight
+## Version: 1.2.0
+## Dependencies: BetterBags
+
+## Notes: Category for saved gear sets/equipment sets.
+
+## IconTexture: Interface\ICONS\INV_Helm_Armor_HumanHeritage_D_01
+
+main.lua
