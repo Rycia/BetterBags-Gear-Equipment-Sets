@@ -19,7 +19,7 @@ body:
     id: testing
     attributes:
       label: Tested with only BetterBags Gear/Equipment Sets
-      description: Did you try having APR as the only enabled addon and everything else (especially something like ElvUI) disabled?
+      description: Did you try having BetterBags Gear/Equipment Sets and BetterBags as the only enabled addon and everything else (especially something like ElvUI) disabled?
       options:
         - label: "Yes"
         - label: "No"
