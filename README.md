@@ -1,6 +1,6 @@
-Adds category for saved equipment sets/gear sets while items of those sets are not equipped.
+Adds category for saved equipment sets/gear sets while items of those sets are not equipped. Help prevent accidental deletion of items you use while sifting through gear!
 
-Help prevent accidental deletion of items you use while sifting through gear!
+Requires [BetterBags](https://www.curseforge.com/wow/addons/better-bags).
 
 If you have issues or want to help contribute to this AddOn, please head over to GitHub with the link below.
 [![GitHub](https://github.com/user-attachments/assets/36665467-3547-49bf-9c33-0095bd3bcb8b)](https://github.com/Rycia/BetterBags-Gear-Equipment-Sets)
