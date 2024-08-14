@@ -9,4 +9,4 @@
 
 ## IconTexture: Interface\ICONS\INV_Helm_Armor_HumanHeritage_D_01
 
-main.lua
+BetterBags_Gearsets.lua
