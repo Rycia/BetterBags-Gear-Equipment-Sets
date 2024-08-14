@@ -1,0 +1,4 @@
+package-as: BetterBags_Gearsets
+
+ignore:
+  - README.md
