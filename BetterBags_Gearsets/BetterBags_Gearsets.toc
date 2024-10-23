@@ -1,8 +1,8 @@
-## Interface: 110002
+## Interface: 110005
 
 ## Title: BetterBags - Gear/Equipment Sets
 ## Author: Rycia Soulblight
-## Version: 1.2.0
+## Version: 1.2.1
 ## Dependencies: BetterBags
 
 ## Notes: Category for saved gear sets/equipment sets.
