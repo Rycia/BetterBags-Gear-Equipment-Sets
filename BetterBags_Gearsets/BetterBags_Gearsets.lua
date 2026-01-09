@@ -1,43 +1,62 @@
 ---@class BetterBags: AceAddon
-local addon = LibStub('AceAddon-3.0'):GetAddon("BetterBags")
+local addon = LibStub("AceAddon-3.0"):GetAddon("BetterBags")
 ---@class Categories: AceModule
-local categories = addon:GetModule('Categories')
+local categories = addon:GetModule("Categories")
 ---@class Localization: AceModule
-local L = addon:GetModule('Localization')
+local L = addon:GetModule("Localization")
+
 -------------------------------------------------------
 local debug = false
 local function printMsgDebug(message)
-	if debug == true then
-		print("[BetterBags Gear Sets] "..message)
-	end
+    if debug then
+        print("[BetterBags Gear Sets] " .. message)
+    end
 end
 -------------------------------------------------------
-local function UpdateGearsets() -- Add all items in equipment sets to the "Sets" category
-   local equipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs()
 
-   for _, i in pairs(equipmentSetIDs) do -- For all sets
-    printMsgDebug("Set " .. i)
-      local itemIDs = C_EquipmentSet.GetItemIDs(i)
-      if itemIDs then
-         for _, itemID in pairs(itemIDs) do
-            if itemID and itemID > 0 then
-                printMsgDebug("ID: " .. itemID)
-               categories:AddItemToCategory(itemID, "Gear Sets")
-            else
-                printMsgDebug("Invalid or missing ItemID \"" .. tostring(itemID) .. "\" in \"" .. i .. "\".")
+local CATEGORY_NAME = "Gear Sets"
+
+local function UpdateGearsets()
+    -- Ensure BetterBags categories are ready
+    if not categories or not categories.AddItemToCategory then
+        printMsgDebug("Categories module not ready yet.")
+        return
+    end
+
+    -- Ensure category exists (safe to call multiple times)
+    categories:CreateCategory(CATEGORY_NAME, L and L[CATEGORY_NAME] or CATEGORY_NAME)
+
+    local equipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs()
+    if not equipmentSetIDs then return end
+
+    printMsgDebug("Updating gear sets...")
+
+    for _, setID in ipairs(equipmentSetIDs) do
+        local itemIDs = C_EquipmentSet.GetItemIDs(setID)
+        if itemIDs then
+            for _, itemID in ipairs(itemIDs) do
+                if itemID and itemID > 0 then
+                    categories:AddItemToCategory(itemID, CATEGORY_NAME)
+                    printMsgDebug("Added itemID " .. itemID)
+                end
             end
-         end
-      else
-        printMsgDebug("Missing set \"" .. i .. "\".")
-      end
-   end
+        end
+    end
 end
+
+-------------------------------------------------------
+-- Event handling
+-------------------------------------------------------
 
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGIN")
 frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame:RegisterEvent("EQUIPMENT_SETS_CHANGED")
-frame:SetScript("OnEvent", function(self, event, ...) -- Update on login and gear change events
-    printMsgDebug("Event \"" .. event .. "\" fired.")
-   UpdateGearsets()
+frame:RegisterEvent("BAG_UPDATE_DELAYED")
+
+frame:SetScript("OnEvent", function(_, event)
+    printMsgDebug("Event fired: " .. event)
+
+    -- Delay execution to ensure item data + BetterBags are ready
+    C_Timer.After(0.1, UpdateGearsets)
 end)
